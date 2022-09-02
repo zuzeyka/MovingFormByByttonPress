@@ -12,9 +12,12 @@ namespace MovingFormByByttonPress
 {
     public partial class Form1 : Form
     {
+        DateTime StartTime;
         public Form1()
         {
             InitializeComponent();
+            StartTime = DateTime.Now;
+            label1.Text += StartTime;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -52,6 +55,18 @@ namespace MovingFormByByttonPress
                     break;
             }
             this.Location = AfterRevievLocation;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            var Miliseconds = (DateTime.Now - StartTime).TotalMilliseconds - 3;
+            label2.Text = "Stop:" + DateTime.Now;
+            if (Miliseconds >= 5000)
+            {
+                System.Windows.Forms.Timer timer = sender as System.Windows.Forms.Timer;
+                timer1.Enabled = false;
+            }
+            this.Text = Convert.ToString(Miliseconds);
         }
     }
 }
